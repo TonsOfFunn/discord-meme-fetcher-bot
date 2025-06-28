@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Meme Fetcher Bot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .title-container {
+            overflow: hidden;
+            margin-bottom: 2rem;
+        }
+
+        .scrolling-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #feca57);
+            background-size: 400% 400%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite, slideIn 1.5s ease-out;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #b8b8b8;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            0% {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out both;
+        }
+
+        .feature-card:nth-child(1) { animation-delay: 0.6s; }
+        .feature-card:nth-child(2) { animation-delay: 0.8s; }
+        .feature-card:nth-child(3) { animation-delay: 1.0s; }
+        .feature-card:nth-child(4) { animation-delay: 1.2s; }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #4ecdc4;
+        }
+
+        .feature-description {
+            color: #b8b8b8;
+            line-height: 1.6;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin: 4rem 0;
+            animation: fadeInUp 1s ease-out 1.4s both;
+        }
+
+        .button-container {
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        .github-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(45deg, #24292e, #586069);
+            color: white;
+            text-decoration: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            overflow: hidden;
+            animation: slideInFromRight 1.5s ease-out 2s both;
+        }
+
+        .github-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .github-button:hover::before {
+            left: 100%;
+        }
+
+        .github-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: #4ecdc4;
+        }
+
+        .github-icon {
+            font-size: 1.2rem;
+        }
+
+        .commands-section {
+            margin: 4rem 0;
+            animation: fadeInUp 1s ease-out 1.6s both;
+        }
+
+        .commands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .command-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .command-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .command-name {
+            font-family: 'Courier New', monospace;
+            color: #4ecdc4;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .command-description {
+            color: #b8b8b8;
+            font-size: 0.9rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: #ffffff;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+            animation: fadeInUp 1s ease-out 1.8s both;
+        }
+
+        .footer-text {
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .heart {
+            color: #ff6b6b;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @media (max-width: 768px) {
+            .scrolling-title {
+                font-size: 2.5rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1rem;
+            }
+            
+            .commands-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            100% {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="hero">
+            <div class="title-container">
+                <h1 class="scrolling-title">🎭 Discord Meme Fetcher Bot</h1>
+            </div>
+            <p class="subtitle">A powerful Discord bot that fetches memes from Reddit with advanced features and modern design</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🔍</div>
+                <h3 class="feature-title">Smart Search</h3>
+                <p class="feature-description">Search for memes using keywords or get random trending memes from popular subreddits with intelligent filtering.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Async Performance</h3>
+                <p class="feature-description">Built with async operations for non-blocking performance and smooth user experience.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <h3 class="feature-title">Robust & Secure</h3>
+                <p class="feature-description">Comprehensive error handling, input validation, and rate limiting for reliable operation.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🧪</div>
+                <h3 class="feature-title">Fully Tested</h3>
+                <p class="feature-description">Complete test suite with 78 tests covering unit, integration, and configuration testing.</p>
+            </div>
+        </div>
+
+        <div class="commands-section">
+            <h2 class="section-title">Bot Commands</h2>
+            <div class="commands-grid">
+                <div class="command-card">
+                    <div class="command-name">!meme [keyword]</div>
+                    <div class="command-description">Fetch memes by keyword or get trending memes</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-name">!random [count]</div>
+                    <div class="command-description">Get random memes (default: 3, max: 10)</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-name">!search &lt;keyword&gt; [subreddit] [count]</div>
+                    <div class="command-description">Search memes in specific subreddit</div>
+                </div>
+                
+                <div class="command-card">
+                    <div class="command-name">!help</div>
+                    <div class="command-description">Show help information and examples</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <div class="button-container">
+                <a href="https://github.com/TonsOfFunn/discord-meme-fetcher-bot" class="github-button" target="_blank">
+                    <span class="github-icon">📁</span>
+                    View on GitHub
+                </a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p class="footer-text">
+                Made with <span class="heart">❤️</span> by <strong>TonsOfFunn</strong>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Initialize particles
+        createParticles();
+
+        // Add scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all feature cards and command cards
+        document.querySelectorAll('.feature-card, .command-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Add hover effect to GitHub button
+        const githubButton = document.querySelector('.github-button');
+        githubButton.addEventListener('mouseenter', () => {
+            githubButton.style.transform = 'translateY(-3px) scale(1.05)';
+        });
+        
+        githubButton.addEventListener('mouseleave', () => {
+            githubButton.style.transform = 'translateY(0) scale(1)';
+        });
+    </script>
+</body>
+</html> 
