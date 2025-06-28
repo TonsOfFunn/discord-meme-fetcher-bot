@@ -4,7 +4,6 @@ test_results.txt
 # Environment and configuration files
 .env
 .env.*
-env_example.txt
 config.ini
 settings.py
 secrets.json
