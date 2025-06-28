@@ -1,6 +1,6 @@
 import pytest
 import os
-from unittest.mock import patch, MagicMock
+from unittest.mock import patch
 
 from config import (
     DISCORD_TOKEN, DISCORD_PREFIX, REDDIT_CLIENT_ID, 

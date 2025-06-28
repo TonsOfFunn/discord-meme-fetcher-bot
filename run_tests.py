@@ -6,7 +6,6 @@ Runs all unit tests and integration tests with proper configuration.
 
 import sys
 import os
-import subprocess
 import pytest
 
 # Add the current directory to Python path

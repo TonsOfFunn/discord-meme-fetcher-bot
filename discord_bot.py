@@ -6,7 +6,7 @@ import sys
 from typing import Optional
 from config import DISCORD_TOKEN, DISCORD_PREFIX, MAX_MEMES_PER_REQUEST, REDDIT_CLIENT_ID, REDDIT_CLIENT_SECRET
 from reddit_client import RedditMemeFetcher
-from colorama import init, Fore as f, Style as s
+from colorama import init, Fore as f
 init(autoreset=True)
 
 class MemeBot(commands.Bot):

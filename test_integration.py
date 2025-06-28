@@ -1,12 +1,11 @@
 import pytest
 import asyncio
-from unittest.mock import AsyncMock, MagicMock, patch, Mock
-from typing import Optional
+from unittest.mock import AsyncMock, patch
 import discord
 
 from discord_bot import MemeBot, MemeCommands
 from reddit_client import RedditMemeFetcher
-from config import MAX_MEMES_PER_REQUEST, DEFAULT_SUBREDDITS
+from config import MAX_MEMES_PER_REQUEST
 
 
 class TestIntegration:

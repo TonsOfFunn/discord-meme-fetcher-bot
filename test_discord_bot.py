@@ -1,7 +1,5 @@
 import pytest
-import asyncio
-from unittest.mock import AsyncMock, MagicMock, patch, Mock, PropertyMock
-from typing import Optional
+from unittest.mock import AsyncMock, patch, Mock, PropertyMock
 import discord
 from discord_bot import MemeBot, MemeCommands
 from config import MAX_MEMES_PER_REQUEST

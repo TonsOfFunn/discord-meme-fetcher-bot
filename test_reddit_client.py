@@ -1,10 +1,7 @@
 import pytest
-import asyncio
 from unittest.mock import AsyncMock, MagicMock, patch
-from typing import List, Dict
-
 from reddit_client import RedditMemeFetcher
-from config import DEFAULT_SUBREDDITS, SUPPORTED_IMAGE_FORMATS, IMAGE_URL_PATTERNS
+from config import DEFAULT_SUBREDDITS, SUPPORTED_IMAGE_FORMATS
 
 # Helper for async generator
 class AsyncIterator:
