@@ -171,20 +171,20 @@ You can modify the bot settings in `config.py`:
 ## 📁 Project Structure
 
 ```
-meme-fetcher/
+discord-meme-fetcher-bot/
 ├── discord_bot.py          # Main Discord bot file
 ├── reddit_client.py        # Reddit API client
-├── config.py              # Configuration settings
-├── run.py                 # Main entry point script
-├── run_tests.py           # Test runner script
-├── requirements.txt       # Python dependencies
-├── env_example.txt        # Environment variables example
-├── .gitignore            # Git ignore configuration
-├── README.md             # This file
-├── test_config.py        # Configuration tests
-├── test_reddit_client.py # Reddit client tests
-├── test_discord_bot.py   # Discord bot tests
-└── test_integration.py   # Integration tests
+├── config.py               # Configuration settings
+├── run.py                  # Main entry point script
+├── run_tests.py            # Test runner script
+├── requirements.txt        # Python dependencies
+├── env_example.txt         # Environment variables example
+├── .gitignore              # Git ignore configuration
+├── README.md               # This file
+├── test_config.py          # Configuration tests
+├── test_reddit_client.py   # Reddit client tests
+├── test_discord_bot.py     # Discord bot tests
+└── test_integration.py     # Integration tests
 ```
 
 ## 🛡️ Safety Features
