@@ -235,6 +235,17 @@ class MemeCommands(commands.Cog):
         embed.add_field(name="Score", value=f"⬆️ {meme['score']}", inline=True)
         embed.add_field(name="Author", value=f"u/{meme['author']}", inline=True)
         
+        # Add sorting method info if available (for random command)
+        if 'sort_method' in meme:
+            sort_display = meme['sort_method'].title()
+            if meme['sort_method'] == 'top' and 'time_filter' in meme:
+                sort_display += f" ({meme['time_filter']})"
+            embed.add_field(name="Sort", value=sort_display, inline=True)
+        
+        # Add search method info if available (for search command)
+        if 'search_method' in meme:
+            embed.add_field(name="Search", value=meme['search_method'].title(), inline=True)
+        
         embed.set_footer(text="Click the title to view on Reddit")
         return embed
 

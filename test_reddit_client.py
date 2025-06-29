@@ -146,6 +146,9 @@ class TestRedditMemeFetcher:
         mock_subreddit.search = MagicMock(return_value=AsyncIterator([mock_post]))
         reddit_client.reddit.subreddit.return_value = mock_subreddit
         
+        # Mock the cache buster generation to return a predictable value
+        reddit_client._generate_cache_buster = MagicMock(return_value="test_cache_buster")
+        
         result = await reddit_client.fetch_memes_by_keyword("test", limit=1)
         
         assert len(result) == 1
@@ -193,7 +196,9 @@ class TestRedditMemeFetcher:
     async def test_fetch_random_memes_success(self, reddit_client, mock_post):
         """Test successful random meme fetching."""
         mock_subreddit = AsyncMock()
-        mock_subreddit.hot = MagicMock(return_value=AsyncIterator([mock_post]))
+        
+        # Mock the new cache-busting method
+        reddit_client._fetch_posts_with_cache_busting = AsyncMock(return_value=[mock_post])
         reddit_client.reddit.subreddit.return_value = mock_subreddit
         
         result = await reddit_client.fetch_random_memes(limit=1)
@@ -205,8 +210,21 @@ class TestRedditMemeFetcher:
     async def test_fetch_random_memes_limit_respected(self, reddit_client, mock_post):
         """Test that the limit is respected when fetching random memes."""
         mock_subreddit = AsyncMock()
-        posts = [mock_post] * 10
-        mock_subreddit.hot = MagicMock(return_value=AsyncIterator(posts))
+        
+        # Create unique mock posts to avoid duplicate filtering
+        unique_posts = []
+        for i in range(10):
+            post = MagicMock()
+            post.title = f"Test Meme {i}"
+            post.url = f"https://example.com/meme{i}.jpg"
+            post.author = f"test_user_{i}"
+            post.score = 100 + i
+            post.permalink = f"/r/test/comments/123/test_meme_{i}/"
+            post.over_18 = False
+            unique_posts.append(post)
+        
+        # Mock the new cache-busting method
+        reddit_client._fetch_posts_with_cache_busting = AsyncMock(return_value=unique_posts)
         reddit_client.reddit.subreddit.return_value = mock_subreddit
         
         result = await reddit_client.fetch_random_memes(limit=3)
@@ -217,7 +235,9 @@ class TestRedditMemeFetcher:
     async def test_get_trending_memes(self, reddit_client, mock_post):
         """Test get_trending_memes method."""
         mock_subreddit = AsyncMock()
-        mock_subreddit.hot = MagicMock(return_value=AsyncIterator([mock_post]))
+        
+        # Mock the new cache-busting method
+        reddit_client._fetch_posts_with_cache_busting = AsyncMock(return_value=[mock_post])
         reddit_client.reddit.subreddit.return_value = mock_subreddit
         
         result = await reddit_client.get_trending_memes(limit=1)
