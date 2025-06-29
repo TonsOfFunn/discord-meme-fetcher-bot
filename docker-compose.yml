@@ -18,8 +18,6 @@ services:
       - CACHE_DURATION=${CACHE_DURATION:-300}
       - LOG_LEVEL=${LOG_LEVEL:-INFO}
     volumes:
-      # Mount config directory for easy updates
-      - ./config:/app/config:ro
       # Mount logs directory
       - ./logs:/app/logs
     networks:
