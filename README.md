@@ -16,6 +16,7 @@ A Discord bot that fetches memes from Reddit based on keywords or provides rando
 - **Input validation**: Robust input validation and whitespace handling
 - **Environment variable support**: Easy configuration via environment variables
 - **Comprehensive testing**: Full test suite with unit and integration tests
+- **Docker support**: Easy deployment with Docker containers
 
 ## 🚀 Commands
 
@@ -28,26 +29,38 @@ A Discord bot that fetches memes from Reddit based on keywords or provides rando
 
 ## 📋 Prerequisites
 
-- Python 3.8 or higher
+- Python 3.8 or higher (for local development)
+- Docker and Docker Compose (for containerized deployment)
 - Discord Bot Token
 - Reddit API Credentials
 
 ## 🛠️ Setup Instructions
 
-### 1. Clone or Download the Project
+### Option 1: Docker Deployment (Recommended)
+
+#### 1. Install Docker
+
+**Windows/macOS:**
+- Download and install [Docker Desktop](https://www.docker.com/products/docker-desktop)
+
+**Linux:**
+```bash
+# Ubuntu/Debian
+sudo apt-get update
+sudo apt-get install docker.io docker-compose
+
+# CentOS/RHEL
+sudo yum install docker docker-compose
+```
+
+#### 2. Clone the Repository
 
 ```bash
 git clone https://github.com/TonsOfFunn/discord-meme-fetcher-bot.git
 cd discord-meme-fetcher-bot
 ```
 
-### 2. Install Dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 3. Create a Discord Bot
+#### 3. Create a Discord Bot
 
 1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
 2. Click "New Application" and give it a name
@@ -60,7 +73,7 @@ pip install -r requirements.txt
    - Use Slash Commands
    - Read Message History
 
-### 4. Get Reddit API Credentials
+#### 4. Get Reddit API Credentials
 
 1. Go to [Reddit App Preferences](https://www.reddit.com/prefs/apps)
 2. Click "Create App" or "Create Another App"
@@ -72,7 +85,7 @@ pip install -r requirements.txt
    - **Redirect URI**: http://localhost:8080
 4. Copy the Client ID and Client Secret
 
-### 5. Configure Environment Variables
+#### 5. Configure Environment Variables
 
 1. Copy `env_example.txt` to `.env`
 2. Add your credentials:
@@ -86,7 +99,89 @@ REDDIT_CLIENT_ID=your_reddit_client_id_here
 REDDIT_CLIENT_SECRET=your_reddit_client_secret_here
 ```
 
-### 6. Invite Bot to Your Server
+#### 6. Run with Docker
+
+**Windows:**
+```bash
+docker-run.bat
+```
+
+**Linux/macOS:**
+```bash
+chmod +x docker-run.sh
+./docker-run.sh
+```
+
+**Manual Docker commands:**
+```bash
+# Build and run
+docker-compose up --build
+
+# Run in background
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the bot
+docker-compose down
+```
+
+### Option 2: Local Development
+
+#### 1. Clone or Download the Project
+
+```bash
+git clone https://github.com/TonsOfFunn/discord-meme-fetcher-bot.git
+cd discord-meme-fetcher-bot
+```
+
+#### 2. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+#### 3. Create a Discord Bot
+
+1. Go to [Discord Developer Portal](https://discord.com/developers/applications)
+2. Click "New Application" and give it a name
+3. Go to the "Bot" section and click "Add Bot"
+4. Copy the bot token
+5. Enable the following bot permissions:
+   - Send Messages
+   - Embed Links
+   - Attach Files
+   - Use Slash Commands
+   - Read Message History
+
+#### 4. Get Reddit API Credentials
+
+1. Go to [Reddit App Preferences](https://www.reddit.com/prefs/apps)
+2. Click "Create App" or "Create Another App"
+3. Fill in the details:
+   - **Name**: MemeFetcherBot
+   - **Type**: Script
+   - **Description**: Discord bot for fetching memes
+   - **About URL**: (leave blank)
+   - **Redirect URI**: http://localhost:8080
+4. Copy the Client ID and Client Secret
+
+#### 5. Configure Environment Variables
+
+1. Copy `env_example.txt` to `.env`
+2. Add your credentials:
+
+```env
+# Discord Bot Configuration
+DISCORD_TOKEN=your_discord_bot_token_here
+
+# Reddit API Configuration
+REDDIT_CLIENT_ID=your_reddit_client_id_here
+REDDIT_CLIENT_SECRET=your_reddit_client_secret_here
+```
+
+#### 6. Invite Bot to Your Server
 
 1. Go to OAuth2 > URL Generator in your Discord app
 2. Select "bot" scope
@@ -94,7 +189,7 @@ REDDIT_CLIENT_SECRET=your_reddit_client_secret_here
 4. Copy the generated URL and open it in a browser
 5. Select your server and authorize the bot
 
-### 7. Run the Bot
+#### 7. Run the Bot
 
 **Option 1: Using the main runner**
 ```bash

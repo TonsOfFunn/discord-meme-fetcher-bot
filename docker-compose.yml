@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  discord-bot:
+    build: .
+    container_name: discord-meme-bot
+    restart: unless-stopped
+    environment:
+      # Discord Bot Token
+      - DISCORD_TOKEN=${DISCORD_TOKEN}
+      # Reddit API Credentials
+      - REDDIT_CLIENT_ID=${REDDIT_CLIENT_ID}
+      - REDDIT_CLIENT_SECRET=${REDDIT_CLIENT_SECRET}
+      - REDDIT_USER_AGENT=${REDDIT_USER_AGENT:-DiscordMemeBot/1.0}
+      # Bot Configuration
+      - BOT_PREFIX=${BOT_PREFIX:-!}
+      - MAX_MEMES_PER_REQUEST=${MAX_MEMES_PER_REQUEST:-5}
+      - CACHE_DURATION=${CACHE_DURATION:-300}
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+    volumes:
+      # Mount config directory for easy updates
+      - ./config:/app/config:ro
+      # Mount logs directory
+      - ./logs:/app/logs
+    networks:
+      - bot-network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import sys; sys.exit(0)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+networks:
+  bot-network:
+    driver: bridge
+
+volumes:
+  bot-logs: 
