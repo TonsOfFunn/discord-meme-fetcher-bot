@@ -128,54 +128,25 @@
             line-height: 1.6;
         }
 
-        .cta-section {
-            text-align: center;
-            margin: 4rem 0;
-            animation: fadeInUp 1s ease-out 1.4s both;
-        }
-
-        .button-container {
-            overflow: hidden;
-            display: inline-block;
-        }
-
         .github-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: linear-gradient(45deg, #24292e, #586069);
-            color: white;
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #ff6b6b);
+            background-size: 300% 300%;
+            animation: gradientShift 3s ease-in-out infinite;
+            color: #ffffff;
+            padding: 11px 33px;
             text-decoration: none;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
+            border-radius: 9px;
+            font-weight: 669;
+            text-align: center;
+            margin: 69px 0 0 0; /* top right bottom left */
             transition: all 0.3s ease;
-            border: 2px solid transparent;
-            position: relative;
-            overflow: hidden;
-            animation: slideInFromRight 1.5s ease-out 2s both;
-        }
-
-        .github-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
-        }
-
-        .github-button:hover::before {
-            left: 100%;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
         }
 
         .github-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-            border-color: #4ecdc4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
         }
 
         .github-icon {
@@ -321,8 +292,9 @@
             </div>
             <p class="subtitle">A powerful Discord bot that fetches memes from Reddit with advanced features and modern design</p>
         </div>
-
+        <h2 class=" section-title subtitle" style="text-align: center">Features</h2>
         <div class="features-grid">
+            
             <div class="feature-card">
                 <div class="feature-icon">🔍</div>
                 <h3 class="feature-title">Smart Search</h3>
@@ -349,7 +321,7 @@
         </div>
 
         <div class="commands-section">
-            <h2 class="section-title">Bot Commands</h2>
+            <h2 class="section-title subtitle" style="text-align: center">Bot Commands</h2>
             <div class="commands-grid">
                 <div class="command-card">
                     <div class="command-name">!meme [keyword]</div>
@@ -373,14 +345,13 @@
             </div>
         </div>
 
-        <div class="cta-section">
-            <div class="button-container">
-                <a href="https://github.com/TonsOfFunn/discord-meme-fetcher-bot" class="github-button" target="_blank">
-                    <span class="github-icon">📁</span>
-                    View on GitHub
-                </a>
+        
+            <div style="text-align: center;">
+                <a href="https://github.com/TonsOfFunn/discord-meme-fetcher-bot" class="github-button">
+                    Get on GitHub
+                </a> 
             </div>
-        </div>
+
 
         <div class="footer">
             <p class="footer-text">
